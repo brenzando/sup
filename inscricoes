@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <link rel="icon" href="https://www.habbo.com.br/habbo-imaging/badge/b09034s43131s50134s17113s1711594848847cad78ac939330154be639c58.gif" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[SUP] Inscrições Departamentais</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Fundo com imagem escura */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.imgur.com/37N7czC.png');
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+    }
+
+    .background::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    .radial-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 100% 50%, rgba(110, 189, 0, 0.6), transparent 55%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+    /* Imagem decorativa */
+    .decorative-image {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      max-height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Conteúdo principal */
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      min-height: 100vh;
+      padding: 60px 60px 60px 120px;
+      align-items: center;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .sidebar-button {
+      width: 60px;
+      height: 60px;
+      background-color: #1a1a1a;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      transform: translateX(0);
+    }
+
+    .sidebar-button:hover {
+      background-color: #71BF00;
+      box-shadow: 0 0 10px #71BF00, 0 0 20px #71BF00;
+      transform: translateX(5px);
+    }
+
+    .sidebar-button img {
+      width: 38px;
+      height: 38px;
+      filter: grayscale(100%) brightness(0.5);
+      transition: filter 0.3s ease;
+    }
+
+    .sidebar-button:hover img {
+      filter: none;
+    }
+
+    .sidebar-button.active {
+  background-color: #71BF00;
+  box-shadow: 0 0 10px #71BF00, 0 0 20px #71BF00;
+  transform: translateX(5px);
+}
+
+    .sidebar-button.active img {
+  filter: none;
+}
+
+    .content {
+      max-width: 700px;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      line-height: 1em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    h1 strong {
+      font-weight: 800;
+    }
+
+    h1 .highlight {
+      color: #71BF00;
+    }
+
+    .description {
+      margin: 20px 0;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .form-btn {
+  margin-top: 10px;
+  padding: 14px 26px;
+  font-size: 16px;
+  background-color: #71BF00;
+  color: #213500;
+  border: none;
+  border-radius: 15px 5px 15px 5px; /* Totalmente arredondado */
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 0 0 transparent;
+}
+
+.form-btn:hover {
+  background-color: #61a502;
+  color: #37530a;  
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(97, 165, 2, 0.5);
+}
+
+.creditos {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #777;
+  transition: color 0.3s ease;
+  z-index: 9999;
+  cursor: default;
+  text-align: center;
+}
+
+.creditos:hover {
+  color: #61a502; /* Verde no hover */
+}
+
+.creditos i {
+  margin-right: 5px;
+}
+
+    /* Transições de texto */
+    .fade {
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateX(20px);
+      animation: fadeInSlide 0.5s forwards;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 20px;
+      }
+      .sidebar {
+        flex-direction: row;
+        top: 10px;
+        left: 10px;
+        transform: none;
+      }
+      .decorative-image {
+        display: none;
+      }
+      h1 {
+        font-size: 24px;
+      }
+    }
+    .description p {
+  text-align: justify;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    padding: 40px 30px;
+    text-align: center;
+  }
+  .content {
+    max-width: 90%;
+  }
+  .sidebar {
+    flex-direction: row;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    border-radius: 15px;
+    padding: 10px;
+  }
+  .sidebar-button {
+    width: 50px;
+    height: 50px;
+  }
+  .sidebar-button img {
+    width: 30px;
+    height: 30px;
+  }
+  .form-btn {
+    width: 100%;
+    padding: 14px;
+  }
+  .creditos {
+    font-size: 13px;
+    position: relative;
+    margin-top: 40px;
+  }
+  h1 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-bottom: 20px;
+    z-index: 1;
+  }
+
+  .container {
+    padding: 20px;
+    padding-top: 0;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .creditos {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container {
+    min-height: auto;
+    padding-bottom: 10px;
+  }
+
+  .creditos {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Fundo -->
+  <div class="background"></div>
+  <div class="radial-overlay"></div>
+
+  <!-- Imagem decorativa -->
+  <img class="decorative-image" src="https://i.imgur.com/aycJDJ9.png" alt="Imagem Decorativa" />
+
+  <!-- Barra lateral -->
+  <div class="sidebar">
+<div class="sidebar-button" onclick="changeContent(0)" title="Divisão de Investigação e Segurança">
+      <img src="https://www.habbo.com.br/habbo-imaging/badge/b07044s02135s01043s06114dd3e8468ba031828da21d05254f71ba8.gif" alt="Ícone 1" />
+    </div>
+<div class="sidebar-button" onclick="changeContent(1)" title="Departamento de Comunicação e Interatividade">
+      <img src="https://www.habbo.com.br/habbo-imaging/badge/b07244s02134s36034s50114s170128280236295c7a60513d0ff16237b7420.gif" alt="Ícone 2" />
+    </div>
+    <div class="sidebar-button" onclick="changeContent(2)" title="Departamento de Aplicação">
+      <img src="https://www.habbo.com.br/habbo-imaging/badge/b17034s50034s17113s17115620cf0b0840652764ce67fc55218dcc2.gif" alt="Ícone 3" />
+    </div>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="container">
+    <div class="content">
+      <h1 id="main-title" class="fade"><strong>Inscrições <br><span class="highlight">Departamentais</span></strong></h1>
+      <div class="description fade" id="description">
+        <p><justify>A participação em grupos internos da Companhia dos Supervisores é um 
+        <strong style="color:#61a502;">diferencial</strong> para aqueles que desejam se <strong style="color:#61a502;">destacar e crescer em nossa hierarquia interna.</strong>
+        Dado isso, a companha possui <strong style="color:#61a502;">três grupos internos</strong> que exercem funções essenciais para o funcionamento e estabilidade da companhia, 
+        trazendo assim, benefícios de forma geral. A entrada de novos integrantes para os grupos é feita de forma burocrática entre seus membros, podendo ser por meio de processo 
+        seletivo ou escolha entre seus atuais constituintes, a critério única e exclusivamente da liderança deste.</justify></p>
+      </div>
+      <a href="#" class="form-btn" onclick="openForm()">Formulário de Inscrição</a>
+      <footer class="creditos">
+  <i class="fas fa-code"></i> Desenvolvido por <strong>.Brendon</strong>
+</footer>
+    </div>
+  </div>
+  
+
+  <!-- JavaScript -->
+  <script>
+    const titles = [
+      '<i>Divisão de </i><br><strong>Investigação e<br> <span class="highlight">Segurança</span></strong>',
+      '<i>Departamento de</i> <br><strong>Comunicação e<br> <span class="highlight">Interatividade</span></strong>',
+      '<strong><i>Departamento de</i> <br> <span class="highlight">Aplicação</span></strong>'
+    ];
+
+    const descriptions = [
+      `<p><justify>A <strong style="color:#61a502;">Divisão de Investigação e Segurança</strong>, instância do âmbito judiciário da companhia do Supervisores, tem como finalidade funções de fiscalização, assim, garantindo uma maior segurança dentro das estruturas da companhia, além de prezar pela qualidade dos membros, ou seja, tem como função a fiscalização diária de todas as possíveis infrações que vão contra o Código de Conduta do Supervisor e demais normativas que regem nosso funcionamento, além de monitorar as aulas da companhia. A <strong style="color:#61a502;">DIS</strong> tem total autorização para aplicar qualquer punição prevista neste documento com o consentimento da Liderança da companhia.</justify></p>`,
+
+      `<p><justify>O <strong style="color:#61a502;">Departamento de Comunicação e Interatividade</strong> é responsável por criar um ciclo de entretenimento que contribua com o lazer dos membros da Companhia dos Supervisores, na realização de eventos e interações com estes, além de ser responsável pelo marketing da companhia. O <strong style="color:#61a502;">DCI</strong> tem total autorização para realizar diversos eventos, independentemente da data, sendo que deve ser com o consentimento da Liderança da companhia, e preferencialmente em datas de reuniões gerais.</justify></p>`,
+
+      `<p>O <strong style="color:#61a502;">Departamento de Aplicação</strong> tem como finalidade a aplicação de testes admissionais para a companhia, servindo de um suporte aos estagiários e ministros encarregados nesta função e ajudando a manter uma boa disponibilidade e demanda de testes.</p>`,
+    ];
+
+function changeContent(index) {
+  const title = document.getElementById('main-title');
+  const desc = document.getElementById('description');
+  const buttons = document.querySelectorAll('.sidebar-button');
+
+  // Remove .active de todos os botões
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  // Adiciona .active ao botão clicado
+  buttons[index].classList.add('active');
+
+  // Animação do conteúdo
+  title.classList.add('fade-out');
+  desc.classList.add('fade-out');
+
+  setTimeout(() => {
+    title.innerHTML = titles[index];
+    desc.innerHTML = descriptions[index];
+
+    title.classList.remove('fade-out');
+    desc.classList.remove('fade-out');
+
+    title.classList.add('fade-in');
+    desc.classList.add('fade-in');
+
+    setTimeout(() => {
+      title.classList.remove('fade-in');
+      desc.classList.remove('fade-in');
+    }, 500);
+  }, 400);
+}
+
+    function openForm() {
+      alert("Você será redirecionado para o formulário de inscrição.");
+      window.location.href = "https://forms.gle/1Zt3r1Ku17tAQBf48"; // Substitua pelo seu link real
+    }
+  </script>
+</body>
+</html>
